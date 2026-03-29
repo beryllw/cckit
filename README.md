@@ -13,7 +13,7 @@ Useful for switching between model providers (API / Bedrock / Vertex), permissio
 ## Install
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/beryllw/cckit/main/install.sh | zsh
+curl -fsSL https://raw.githubusercontent.com/beryllw/cckit/master/install.sh | zsh
 ```
 
 This will:
@@ -25,6 +25,14 @@ Then reload your shell:
 
 ```bash
 source ~/.zshrc
+```
+
+## Update
+
+Re-run the install script to update. Your profiles will be preserved.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/beryllw/cckit/master/install.sh | zsh
 ```
 
 ## Usage

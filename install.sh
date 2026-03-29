@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # cckit installer
-# Usage: curl -fsSL https://raw.githubusercontent.com/beryllw/cckit/main/install.sh | zsh
+# Usage: curl -fsSL https://raw.githubusercontent.com/beryllw/cckit/master/install.sh | zsh
 
 set -e
 
@@ -20,9 +20,17 @@ main() {
         echo "Updating existing installation..."
         git -C "$CCKIT_DIR" pull --quiet
     elif [[ -d "$CCKIT_DIR" ]]; then
-        echo "Error: $CCKIT_DIR exists but is not a git repo." >&2
-        echo "Remove it first: rm -rf $CCKIT_DIR" >&2
-        exit 1
+        echo "Reinstalling (preserving profiles)..."
+        local tmp_profiles="$(mktemp -d)"
+        if [[ -d "$CCKIT_DIR/profiles" ]]; then
+            cp -a "$CCKIT_DIR/profiles" "$tmp_profiles/profiles"
+        fi
+        rm -rf "$CCKIT_DIR"
+        git clone --quiet "$REPO_URL" "$CCKIT_DIR"
+        if [[ -d "$tmp_profiles/profiles" ]]; then
+            cp -a "$tmp_profiles/profiles/"* "$CCKIT_DIR/profiles/" 2>/dev/null
+        fi
+        rm -rf "$tmp_profiles"
     else
         echo "Cloning to $CCKIT_DIR..."
         git clone --quiet "$REPO_URL" "$CCKIT_DIR"

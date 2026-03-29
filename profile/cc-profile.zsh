@@ -44,8 +44,8 @@ _cc_profile_use() {
     fi
 
     # validate name
-    if [[ ! "$name" =~ ^[a-zA-Z0-9_-]+$ ]]; then
-        echo "Error: profile name must match [a-zA-Z0-9_-]+" >&2
+    if [[ ! "$name" =~ ^[a-zA-Z0-9._-]+$ ]]; then
+        echo "Error: profile name must match [a-zA-Z0-9._-]+" >&2
         return 1
     fi
 
